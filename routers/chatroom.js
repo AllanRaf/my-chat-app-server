@@ -5,12 +5,24 @@ const auth = require("../middleware/auth");
 const router = new Router();
 
 router.post("/message", auth, async (request, response) => {
-  console.log("got a request on /message", request.body, request.userId);
   const user = await User.findOne({ where: { id: request.userId } });
-  console.log("user found", user.dataValues.username);
+
   const createNewMessage = await ChatRoom.create({
     username: user.dataValues.username,
     message: request.body.newMessage.message,
+  });
+
+  request.io.on("connection", (socket) => {
+    console.log("connected: ", socket.userId);
+    socket.on("chatmessage", (event) => {
+      console.log("server chat message", event);
+      event.id = createNewMessage.dataValues.id;
+      request.io.emit("chatmessage", event);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("user has disconnected", socket.userId);
+    });
   });
   response.status(201).json(createNewMessage);
 });
