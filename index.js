@@ -20,8 +20,8 @@ app
     request.io = io;
     next();
   }) */
-  .use(authRouter)
-  .use(userRouter);
+  .use(authRouter);
+// .use(userRouter);
 //.use(chatRoomRouter);
 
 /* io.use(async (socket, next) => {
