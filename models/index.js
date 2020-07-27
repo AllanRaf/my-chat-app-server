@@ -49,11 +49,11 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.sync()
+/* db.sync()
   .then(() => console.log("Database schema updated"))
   .catch((err) => {
     console.error("Unable to create tables, shutting down...", err);
     process.exit(1);
-  });
+  }); */
 
 module.exports = db;

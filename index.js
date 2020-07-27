@@ -6,7 +6,6 @@ const userRouter = require("./routers/user");
 const chatRoomRouter = require("./routers/chatroom");
 const authRouter = require("./routers/auth");
 const http = require("http");
-const jwt = require("./util/jwt");
 const { toData } = require("./util/jwt");
 
 const jsonParser = bodyParser.json();
@@ -18,10 +17,10 @@ const io = require("socket.io")(server); */
 app
   .use(cors())
   .use(jsonParser)
-  .use(function (request, response, next) {
+  /*   .use(function (request, response, next) {
     request.io = io;
     next();
-  })
+  }) */
   .use(authRouter)
   .use(userRouter)
   .use(chatRoomRouter);
