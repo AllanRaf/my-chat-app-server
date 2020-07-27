@@ -14,10 +14,6 @@ const secret =
 
 const jsonParser = bodyParser.json();
 
-const databaseUrl =
-  process.env.DATABASE_URL ||
-  "postgres://postgres:secret@localhost:5432/postgres";
-
 const app = express();
 const server = http.Server(app);
 const io = require("socket.io")(server);
