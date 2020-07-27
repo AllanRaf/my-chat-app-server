@@ -26,17 +26,7 @@ app
   .use(userRouter)
   .use(chatRoomRouter);
 
-/* io.on("connection", (socket) => {
-  socket.on("chatmessage", (event) => {
-    console.log("server chat message", event);
-    io.emit("chatmessage", event);
-  });
-  socket.on("disconnect", () => {
-    console.log("User has left");
-  });
-}); */
-
-io.use(async (socket, next) => {
+/* io.use(async (socket, next) => {
   try {
     const token = socket.handshake.query.token;
     const data = toData(token);
@@ -46,7 +36,7 @@ io.use(async (socket, next) => {
   } catch (err) {
     console.log("something went wrong");
   }
-});
+}); */
 
 /* io.on("connection", (socket) => {
   console.log("connected: ", socket.userId);
