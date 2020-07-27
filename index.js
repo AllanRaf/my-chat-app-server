@@ -2,9 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-/* const userRouter = require("./routers/user");
-const chatRoomRouter = require("./routers/chatroom");
-const authRouter = require("./routers/auth"); */
+const userRouter = require("./routers/user");
+//const chatRoomRouter = require("./routers/chatroom");
+const authRouter = require("./routers/auth");
 //const http = require("http");
 
 const jsonParser = bodyParser.json();
@@ -13,13 +13,15 @@ const app = express();
 /* const server = http.Server(app);
 const io = require("socket.io")(server); */
 
-app.use(cors()).use(jsonParser);
-/*   .use(function (request, response, next) {
+app
+  .use(cors())
+  .use(jsonParser)
+  /*   .use(function (request, response, next) {
     request.io = io;
     next();
   }) */
-// .use(authRouter);
-//.use(userRouter)
+  .use(authRouter)
+  .use(userRouter);
 //.use(chatRoomRouter);
 
 /* io.use(async (socket, next) => {
