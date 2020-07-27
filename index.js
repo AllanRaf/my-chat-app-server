@@ -49,5 +49,7 @@ app
   });
 }); */
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", function (req, res, next) {
+  res.json({ msg: "This is CORS-enabled for a Single Route" });
+});
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
