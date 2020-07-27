@@ -1,16 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const port = 5000;
+const port = process.env.PORT || 5000;
 const userRouter = require("./routers/user");
 const chatRoomRouter = require("./routers/chatroom");
 const authRouter = require("./routers/auth");
 const http = require("http");
 const jwt = require("./util/jwt");
 const { toData } = require("./util/jwt");
-
-const secret =
-  process.env.JWT_SECRET || "e9rp^&^*&@9sejg)DSUA)jpfds8394jdsfn,m";
 
 const jsonParser = bodyParser.json();
 
