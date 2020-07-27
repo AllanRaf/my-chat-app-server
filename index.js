@@ -13,7 +13,8 @@ const app = express();
 /* const server = http.Server(app);
 const io = require("socket.io")(server); */
 
-//app.use(cors()).use(jsonParser);
+app.use(cors());
+//.use(jsonParser);
 /*   .use(function (request, response, next) {
     request.io = io;
     next();
