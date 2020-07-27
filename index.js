@@ -18,7 +18,7 @@ app.use(cors()).use(jsonParser);
     request.io = io;
     next();
   }) */
-//.use(authRouter)
+// .use(authRouter);
 //.use(userRouter)
 //.use(chatRoomRouter);
 
