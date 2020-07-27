@@ -12,8 +12,8 @@ const { toData } = require("./util/jwt");
 const jsonParser = bodyParser.json();
 
 const app = express();
-const server = http.Server(app);
-const io = require("socket.io")(server);
+/* const server = http.Server(app);
+const io = require("socket.io")(server); */
 
 app
   .use(cors())
@@ -51,6 +51,4 @@ app
 }); */
 
 app.get("/", (req, res) => res.send("Hello World!"));
-server.listen(port, () =>
-  console.log(`Example app listening on port ${port}!`)
-);
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

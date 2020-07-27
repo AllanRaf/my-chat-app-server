@@ -12,7 +12,7 @@ router.post("/message", auth, async (request, response) => {
     message: request.body.newMessage.message,
   });
 
-  request.io.on("connection", (socket) => {
+  /*   request.io.on("connection", (socket) => {
     console.log("connected: ", socket.userId);
     socket.on("chatmessage", (event) => {
       console.log("server chat message", event);
@@ -23,7 +23,7 @@ router.post("/message", auth, async (request, response) => {
     socket.on("disconnect", () => {
       console.log("user has disconnected", socket.userId);
     });
-  });
+  }); */
   response.status(201).json(createNewMessage);
 });
 
