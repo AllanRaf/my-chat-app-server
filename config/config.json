@@ -1,5 +1,6 @@
 {
   "development": {
+    "use_env_variable": "DATABASE_URL",
     "username": "postgres",
     "password": "secret",
     "database": "postgres",
