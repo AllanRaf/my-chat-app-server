@@ -23,7 +23,7 @@ app.use(cors()).use(jsonParser);
 // .use(userRouter);
 //.use(chatRoomRouter);
 
-io.use(async (socket, next) => {
+/* io.use(async (socket, next) => {
   try {
     //   const token = socket.handshake.query.token;
     //    const data = toData(token);
@@ -34,7 +34,7 @@ io.use(async (socket, next) => {
   } catch (err) {
     console.log("something went wrong");
   }
-});
+}); */
 
 /* io.on("connection", (socket) => {
   console.log("connected: ", socket.userId);
