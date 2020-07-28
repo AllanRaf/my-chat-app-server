@@ -10,31 +10,31 @@ const authRouter = require("./routers/auth");
 const jsonParser = bodyParser.json();
 
 const app = express();
+console.log("authrouter", authRouter);
 /* const server = http.Server(app);
 const io = require("socket.io")(server); */
 
-app
-  .use(cors())
-  .use(jsonParser)
-  /*   .use(function (request, response, next) {
+app.use(cors()).use(jsonParser);
+/*   .use(function (request, response, next) {
     request.io = io;
     next();
   }) */
-  .use(authRouter);
+// .use(authRouter);
 // .use(userRouter);
 //.use(chatRoomRouter);
 
-/* io.use(async (socket, next) => {
+io.use(async (socket, next) => {
   try {
-    const token = socket.handshake.query.token;
-    const data = toData(token);
-    socket.userId = data.userId;
+    //   const token = socket.handshake.query.token;
+    //    const data = toData(token);
+    //   socket.userId = data.userId;
+    request.socket = socket;
     console.log("auth 1");
     next();
   } catch (err) {
     console.log("something went wrong");
   }
-}); */
+});
 
 /* io.on("connection", (socket) => {
   console.log("connected: ", socket.userId);
