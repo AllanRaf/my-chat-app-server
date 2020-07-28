@@ -10,6 +10,7 @@ router.get("/user", (req, res, next) => {
 });
 
 router.post("/user", (req, res, next) => {
+  console.log("User", User);
   User.findOne({
     where: {
       email: req.body.email,
