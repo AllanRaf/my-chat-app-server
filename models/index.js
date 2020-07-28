@@ -10,7 +10,7 @@ const config = require(__dirname + "/../config/config.json")[env];
 const databaseURL =
   process.env.DATABASE_URL ||
   "postgres://postgres:secret@localhost:5432/postgres";
-
+console.log("database url", databaseURL);
 const db = new Sequelize(databaseURL);
 //const db = {};
 
