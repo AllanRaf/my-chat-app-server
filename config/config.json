@@ -15,6 +15,7 @@
     "operatorsAliases": false
   },
   "production": {
+    "use_env_variable": "DATABASE_URL",
     "username": "root",
     "password": "secret",
     "database": "database_production",
