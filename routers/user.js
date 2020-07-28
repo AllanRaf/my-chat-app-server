@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Users } = require("../models/index");
+const { User } = require("../models/index");
 const bcrypt = require("bcrypt");
 const router = new Router();
 
@@ -11,7 +11,7 @@ router.get("/user", (req, res, next) => {
 
 router.post("/user", (req, res, next) => {
   console.log("User", User);
-  Users.findOne({
+  User.findOne({
     where: {
       email: req.body.email,
     },
@@ -23,7 +23,7 @@ router.post("/user", (req, res, next) => {
           message: "user already exists",
         });
       } else {
-        Users.create({
+        User.create({
           username: req.body.username,
           email: req.body.email,
           password: bcrypt.hashSync(req.body.password, 10), // 10 salt is the salt
