@@ -8,10 +8,9 @@ router.post("/message", auth, async (request, response) => {
   try {
     const user = await User.findOne({ where: { id: request.userId } });
     request.io.on("connection", (socket) => {
-      console.log("connected: ", socket);
       socket.on("chatmessage", (event) => {
         console.log("server chat message", event);
-        event.id = createNewMessage.dataValues.id;
+        event.id = user.dataValues.id;
         event.username = user.dataValues.email;
         request.io.emit("chatmessage", event);
       });
