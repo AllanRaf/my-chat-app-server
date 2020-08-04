@@ -8,7 +8,7 @@ router.post("/message", auth, async (req, response) => {
   const user = await User.findOne({ where: { id: req.userId } });
 
   const createNewMessage = await ChatRoom.create({
-    username: user.dataValues.username,
+    email: user.dataValues.email,
     message: req.body.newMessage.message,
   });
 

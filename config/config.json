@@ -1,6 +1,5 @@
 {
   "development": {
-    "use_env_variable": "DATABASE_URL",
     "username": "postgres",
     "password": "secret",
     "database": "postgres",
@@ -22,6 +21,11 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
