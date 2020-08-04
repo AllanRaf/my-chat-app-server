@@ -4,33 +4,37 @@ const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 const router = new Router();
 
-router.post("/message", auth, async (req, response) => {
-  const user = await User.findOne({ where: { id: req.userId } });
+router.post("/message", auth, async (request, response) => {
+  try {
+    const user = await User.findOne({ where: { id: request.userId } });
+    request.io.on("connection", (socket) => {
+      console.log("connected: ", socket);
+      socket.on("chatmessage", (event) => {
+        console.log("server chat message", event);
+        event.id = createNewMessage.dataValues.id;
+        event.username = user.dataValues.email;
+        request.io.emit("chatmessage", event);
+      });
 
-  const createNewMessage = await ChatRoom.create({
-    email: user.dataValues.email,
-    message: req.body.newMessage.message,
-  });
-
-  /*   request.io.on("connection", (socket) => {
-    console.log("connected: ", socket.userId);
-    socket.on("chatmessage", (event) => {
-      console.log("server chat message", event);
-      event.id = createNewMessage.dataValues.id;
-      request.io.emit("chatmessage", event);
+      socket.on("disconnect", () => {
+        console.log("user has disconnected", socket.userId);
+      });
     });
 
-    socket.on("disconnect", () => {
-      console.log("user has disconnected", socket.userId);
+    const createNewMessage = await ChatRoom.create({
+      username: user.dataValues.email,
+      message: request.body.newMessage.message,
     });
-  }); */
-  response.status(201).json(createNewMessage);
+
+    response.status(201).json(createNewMessage);
+  } catch (err) {
+    console.log("Chat route error", err);
+  }
 });
 
 router.get("/messages", auth, async (req, response) => {
   const messages = await ChatRoom.findAll();
   response.status(201).json(messages);
-  console.log("all messages", messages[0]);
 });
 
 module.exports = router;
