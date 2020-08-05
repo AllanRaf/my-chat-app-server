@@ -7,18 +7,20 @@ const router = new Router();
 router.post("/message", auth, async (request, response) => {
   try {
     const user = await User.findOne({ where: { id: request.userId } });
-    request.io.on("connection", (socket) => {
+    /*     request.io.on("connection", (socket) => {
       socket.on("chatmessage", (event) => {
-        console.log("server chat message", event);
-        event.id = user.dataValues.id;
-        event.username = user.dataValues.email;
-        request.io.emit("chatmessage", event);
-      });
+        console.log("server chat message", event); */
+    let event = { id: 0, username: "" };
+    event.id = user.dataValues.id;
+    event.username = user.dataValues.email;
+    event.message = request.body.newMessage.message;
+    request.io.emit("chatmessage", event);
+    /*    }); */
 
-      socket.on("disconnect", () => {
+    /*       socket.on("disconnect", () => {
         console.log("user has disconnected", socket.userId);
-      });
-    });
+      }); 
+    });*/
 
     const createNewMessage = await ChatRoom.create({
       username: user.dataValues.email,

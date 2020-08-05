@@ -40,17 +40,13 @@ io.on("connection", (socket) => {
   console.log("a user is connected");
 }); */
 
-/* io.on("connection", (socket) => {
+io.on("connection", (socket) => {
   console.log("connected: ", socket.userId);
-  socket.on("chatmessage", (event) => {
-    console.log("server chat message", event);
-    io.emit("chatmessage", event);
-  });
 
   socket.on("disconnect", () => {
     console.log("user has disconnected", socket.userId);
   });
-}); */
+});
 
 app.get("/", function (req, res, next) {
   res.json({ msg: "This is CORS-enabled for a Single Route" });
