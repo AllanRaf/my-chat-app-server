@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { ChatRoom, User } = require("../models");
+const { Chatroom, User } = require("../models");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 const router = new Router();
@@ -22,7 +22,7 @@ router.post("/message", auth, async (request, response) => {
       }); 
     });*/
 
-    const createNewMessage = await ChatRoom.create({
+    const createNewMessage = await Chatroom.create({
       username: user.dataValues.email,
       message: request.body.newMessage.message,
     });
@@ -33,9 +33,35 @@ router.post("/message", auth, async (request, response) => {
   }
 });
 
+router.post("/chatroom", auth, async (request, response) => {
+  try {
+    const user = await User.findOne({ where: { id: request.userId } });
+    let event = {};
+    event.roomName = request.body.roomName;
+    event.createdBy = user.dataValues.email;
+
+    request.io.emit("chatrooms", event);
+    const createNewChatRoom = await Chatroom.create({
+      roomName: request.body.roomName,
+      createdBy: request.userId,
+    });
+
+    response.status(201).json(createNewChatRoom);
+  } catch (err) {
+    console.log("Chat route error", err);
+  }
+});
+
 router.get("/messages", auth, async (req, response) => {
   const messages = await ChatRoom.findAll();
   response.status(201).json(messages);
+});
+
+router.get("/chatrooms", auth, async (req, response) => {
+  const chatRooms = await Chatroom.findAll({
+    include: [{ model: User, attributes: ["username"] }],
+  });
+  response.status(201).json(chatRooms);
 });
 
 module.exports = router;
