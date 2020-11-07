@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { Chatroom, User } = require("../models");
-const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 const router = new Router();
 
@@ -15,7 +14,6 @@ router.post("/message", auth, async (request, response) => {
     event.username = user.dataValues.email;
     event.message = request.body.newMessage.message;
     request.io.emit("chatmessage", event);
-    /*    }); */
 
     /*       socket.on("disconnect", () => {
         console.log("user has disconnected", socket.userId);

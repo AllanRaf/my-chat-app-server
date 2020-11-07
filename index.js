@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000;
 const userRouter = require("./routers/user");
 const chatRoomRouter = require("./routers/chatroom");
 const authRouter = require("./routers/auth");
+const joinRoomRouter = require("./routers/chatroomwithusers");
 const http = require("http");
 
 const jsonParser = bodyParser.json();
@@ -22,7 +23,8 @@ app
   })
   .use(authRouter)
   .use(userRouter)
-  .use(chatRoomRouter);
+  .use(chatRoomRouter)
+  .use(joinRoomRouter);
 
 /* io.use(async (socket, next) => {
   try {
