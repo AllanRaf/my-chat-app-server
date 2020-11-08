@@ -24,6 +24,7 @@ router.post("/messages/:roomId", auth, async (request, response) => {
   event.roomName = request.body.roomName;
   event.username = user.dataValues.username;
   event.message = request.body.messageToSend;
+  event.messageId = chatRoomMessage.dataValues.id;
 
   request.io.emit(request.body.roomName, event);
 
