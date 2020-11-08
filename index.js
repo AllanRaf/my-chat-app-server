@@ -24,7 +24,7 @@ const corsOptions = {
 app
   .use(cors())
   .use((request, response, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Origin", "*");
     next();
   })
   .use(jsonParser)
