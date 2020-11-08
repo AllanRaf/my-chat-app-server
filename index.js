@@ -15,8 +15,13 @@ const app = express();
 const server = http.Server(app);
 const io = require("socket.io")(server);
 
+const corsOptions = {
+  origin: "https://allanschat.netlify.app",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 app
-  .use(cors())
+  .use(cors(corsOptions))
   .use(jsonParser)
   .use(function (request, response, next) {
     request.io = io;
