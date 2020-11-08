@@ -14,7 +14,7 @@ router.post("/joinroom", auth, async (request, response) => {
       roomId: request.body.roomId,
     });
 
-    response.status.json(joinRoom);
+    response.status(201).json(joinRoom);
   } catch {
     console.log("something went wrong with joining room");
   }

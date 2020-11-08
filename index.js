@@ -6,6 +6,7 @@ const userRouter = require("./routers/user");
 const chatRoomRouter = require("./routers/chatroom");
 const authRouter = require("./routers/auth");
 const joinRoomRouter = require("./routers/chatroomwithusers");
+const chatRoomMessagesRouter = require("./routers/chatroommessages");
 const http = require("http");
 
 const jsonParser = bodyParser.json();
@@ -24,7 +25,8 @@ app
   .use(authRouter)
   .use(userRouter)
   .use(chatRoomRouter)
-  .use(joinRoomRouter);
+  .use(joinRoomRouter)
+  .use(chatRoomMessagesRouter);
 
 /* io.use(async (socket, next) => {
   try {
