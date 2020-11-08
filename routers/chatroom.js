@@ -35,14 +35,15 @@ router.post("/chatroom", auth, async (request, response) => {
   try {
     const user = await User.findOne({ where: { id: request.userId } });
     let event = {};
-    event.roomName = request.body.roomName;
-    event.createdBy = user.dataValues.email;
 
-    request.io.emit("chatrooms", event);
     const createNewChatRoom = await Chatroom.create({
       roomName: request.body.roomName,
       createdBy: request.userId,
     });
+    event.roomName = request.body.roomName;
+    event.createdBy = user.dataValues.email;
+    event.roomId = createNewChatRoom.dataValues.id;
+    request.io.emit("chatrooms", event);
 
     response.status(201).json(createNewChatRoom);
   } catch (err) {

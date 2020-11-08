@@ -49,7 +49,7 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(() => console.log("Database schema updated"))
   .catch((err) => {
     console.error("Unable to create tables, shutting down...", err);
