@@ -23,6 +23,10 @@ const corsOptions = {
 
 app
   .use(cors())
+  .use((request, response, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+  })
   .use(jsonParser)
   .use(function (request, response, next) {
     request.io = io;
