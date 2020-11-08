@@ -5,8 +5,11 @@ const router = new Router();
 
 router.get("/messages/:roomId", auth, async (request, response) => {
   console.log("fetching messages", request.params.roomId);
+  const chatroomMessages = ChatroomMessages.find({
+    where: { roomId: request.params.roomId },
+  });
 
-  response.status(201).json({ roomId: request.params.roomId });
+  response.status(201).json(chatroomMessages);
 });
 
 router.post("/messages/:roomId", auth, async (request, response) => {

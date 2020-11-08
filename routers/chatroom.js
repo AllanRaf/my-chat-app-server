@@ -43,7 +43,7 @@ router.post("/chatroom", auth, async (request, response) => {
     event.roomName = request.body.roomName;
     event.createdBy = user.dataValues.email;
     event.roomId = createNewChatRoom.dataValues.id;
-    request.io.emit("chatrooms", event);
+    //request.io.emit("chatrooms", event);
 
     response.status(201).json(createNewChatRoom);
   } catch (err) {
