@@ -13,18 +13,16 @@ const jsonParser = bodyParser.json();
 
 const app = express();
 
-const corsOptions = {
-  origin: "https://allanschat.netlify.app",
-  credentials: true,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-app.use(cors());
+const options = {
+  cors: true,
+  origins: "*,*",
+}; // some legacy browsers (IE11, various SmartTVs) choke on 204
 
 const server = http.Server(app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, options);
 
 app
+  .use(cors())
   .use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*");
     next();
