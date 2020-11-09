@@ -18,7 +18,7 @@ const options = {
   origins: "*,*",
 }; // some legacy browsers (IE11, various SmartTVs) choke on 204
 
-const server = http.Server(app);
+const server = http.Server(app.use(cors()));
 const io = require("socket.io")(server);
 io.set("origins", "*:*");
 
@@ -38,22 +38,6 @@ app
   .use(chatRoomRouter)
   .use(joinRoomRouter)
   .use(chatRoomMessagesRouter);
-
-/* io.use(async (socket, next) => {
-  try {
-    //   const token = socket.handshake.query.token;
-    //    const data = toData(token);
-    //   socket.userId = data.userId;
-    request.socket = socket;
-    console.log("auth 1");
-    next();
-  } catch (err) {
-    console.log("something went wrong");
-  }
-});
-io.on("connection", (socket) => {
-  console.log("a user is connected");
-}); */
 
 io.on("connection", (socket) => {
   console.log("connected: ", socket);
