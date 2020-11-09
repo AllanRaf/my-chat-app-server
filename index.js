@@ -19,7 +19,8 @@ const options = {
 }; // some legacy browsers (IE11, various SmartTVs) choke on 204
 
 const server = http.Server(app);
-const io = require("socket.io")(server, options);
+const io = require("socket.io")(server);
+io.set("origins", "*:*");
 
 app
   .use(cors())
